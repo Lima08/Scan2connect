@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Abrir LinkedIn - Scan2Connect</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#b51b15",
+                        "tertiary-container": "#d9372b",
+                        "secondary-fixed": "#89fa9b",
+                        "on-background": "#161b2b",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#930004",
+                        "surface-variant": "#dde1f8",
+                        "on-tertiary-fixed": "#410001",
+                        "surface-bright": "#faf8ff",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#00722f",
+                        "on-primary-fixed": "#001a41",
+                        "surface-tint": "#005ac1",
+                        "on-surface": "#1A1B1F",
+                        "on-surface-variant": "#424753",
+                        "on-tertiary-container": "#fffbff",
+                        "primary-fixed": "#d8e2ff",
+                        "secondary-container": "#86f898",
+                        "surface-dim": "#d5d9f0",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#fefcff",
+                        "primary-container": "#2771df",
+                        "surface": "#faf8ff",
+                        "primary": "#0058bd",
+                        "surface-container-high": "#e3e7fe",
+                        "google-red": "#EA4335",
+                        "google-green": "#34A853",
+                        "on-primary-fixed-variant": "#004494",
+                        "on-secondary-fixed-variant": "#005320",
+                        "secondary": "#006e2c",
+                        "on-secondary-fixed": "#002108",
+                        "google-blue": "#4285F4",
+                        "on-error": "#ffffff",
+                        "google-yellow": "#FBBC04",
+                        "background": "#faf8ff",
+                        "surface-container": "#ebedff",
+                        "primary-fixed-dim": "#adc6ff",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#2b3041",
+                        "outline": "#727785",
+                        "tertiary-fixed": "#ffdad5",
+                        "inverse-primary": "#adc6ff",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#eef0ff",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb4a9",
+                        "surface-container-low": "#f2f3ff",
+                        "surface-container-highest": "#dde1f8",
+                        "secondary-fixed-dim": "#6ddd81",
+                        "outline-variant": "#c2c6d5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "64px",
+                        "md": "24px",
+                        "lg": "48px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "base": "8px",
+                        "sm": "12px",
+                        "xs": "4px",
+                        "xl": "80px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "title-lg": ["Hanken Grotesk"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "body-md": ["Hanken Grotesk"],
+                        "label-lg": ["Hanken Grotesk"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-md": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "headline-md": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "headline-sm": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600" }],
+                        "headline-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .progress-bar-animated {
+            animation: progress 10s linear forwards;
+        }
+
+        @keyframes progress {
+            0% {
+                width: 0%;
+            }
+
+            100% {
+                width: 100%;
+            }
+        }
+
+        .icon-animated {
+            animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            opacity: 0;
+            transform: scale(0.5);
+        }
+
+        @keyframes scaleIn {
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface min-h-screen flex flex-col font-body-md antialiased overflow-hidden">
+    <header class="w-full top-0 left-0 bg-surface z-50">
+        <div
+            class="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 w-full max-w-[1280px] mx-auto">
+            <div class="flex items-center gap-base">
+                <span aria-hidden="true" class="material-symbols-outlined text-google-blue text-2xl">qr_code_2</span>
+                <span
+                    class="font-headline-sm text-headline-sm-mobile md:font-headline-sm md:text-headline-sm font-bold text-google-blue">GDG
+                    Connect</span>
+            </div>
+        </div>
+    </header>
+    <main class="flex-grow flex flex-col items-center justify-center p-margin-mobile md:p-margin-desktop relative">
+        <div class="absolute inset-0 pointer-events-none overflow-hidden flex justify-center items-center opacity-30">
+            <div class="w-96 h-96 bg-primary-fixed rounded-full blur-[100px] absolute -top-20 -right-20"></div>
+            <div class="w-96 h-96 bg-secondary-fixed rounded-full blur-[100px] absolute -bottom-20 -left-20"></div>
+        </div>
+        <div id="content-card"
+            class="max-w-md w-full bg-surface-container-lowest border border-surface-variant rounded-[2rem] p-lg flex flex-col items-center text-center shadow-sm relative z-10">
+            <div id="main-view" class="w-full flex flex-col items-center">
+                <div
+                    class="w-24 h-24 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center mb-md icon-animated">
+                    <span aria-hidden="true" class="material-symbols-outlined text-[48px]"
+                        style="font-variation-settings: 'FILL' 1;">work</span>
+                </div>
+                <h1 class="font-headline-md text-headline-md text-on-surface mb-sm">Abrindo perfil no LinkedIn</h1>
+                <p class="font-body-md text-body-md text-outline mb-lg">
+                    Toque no botão abaixo para abrir o perfil no app do LinkedIn.
+                </p>
+                <button
+                    class="w-full px-lg py-md bg-google-blue text-white font-label-lg text-label-lg rounded-full hover:opacity-90 transition-opacity active:scale-95 duration-150 mb-md"
+                    id="open-app-btn">
+                    Abrir no LinkedIn
+                </button>
+                <div class="w-full mb-base">
+                    <div class="flex justify-between items-end mb-xs">
+                        <span class="font-label-md text-label-md text-outline">Redirecionando para o navegador...</span>
+                        <span class="font-label-md text-label-md text-outline" id="countdown">6s</span>
+                    </div>
+                    <div class="h-2 w-full bg-surface-variant rounded-full overflow-hidden">
+                        <div class="h-full bg-google-blue rounded-full progress-bar-animated"></div>
+                    </div>
+                </div>
+                <button
+                    class="text-google-blue font-label-lg text-label-lg underline underline-offset-4 hover:opacity-80 transition-opacity"
+                    id="open-web-btn">
+                    Abrir no navegador
+                </button>
+            </div>
+            <div id="error-view" class="hidden w-full flex flex-col items-center">
+                <div
+                    class="w-24 h-24 bg-error-container text-on-error-container rounded-full flex items-center justify-center mb-md">
+                    <span aria-hidden="true" class="material-symbols-outlined text-[48px]">error</span>
+                </div>
+                <h1 class="font-headline-md text-headline-md text-on-surface mb-sm">Link inválido</h1>
+                <p class="font-body-md text-body-md text-outline">
+                    Não foi possível abrir o perfil do LinkedIn. Verifique o QR Code e tente novamente.
+                </p>
+            </div>
+        </div>
+    </main>
+    <script src="/js/linkedin-open.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search)
+            const linkedinUrl = params.get('url')
+            const mainView = document.getElementById('main-view')
+            const errorView = document.getElementById('error-view')
+
+            if (!linkedinUrl || !LinkedInOpen.isValidLinkedInUrl(linkedinUrl)) {
+                mainView.classList.add('hidden')
+                errorView.classList.remove('hidden')
+                return
+            }
+
+            const openAppBtn = document.getElementById('open-app-btn')
+            const openWebBtn = document.getElementById('open-web-btn')
+            const countdownElement = document.getElementById('countdown')
+
+            openAppBtn.addEventListener('click', () => LinkedInOpen.openLinkedIn(linkedinUrl))
+            openWebBtn.addEventListener('click', () => LinkedInOpen.openLinkedInWeb(linkedinUrl))
+
+            let seconds = 6
+            const interval = setInterval(() => {
+                seconds--
+                if (seconds >= 0) countdownElement.textContent = `${seconds}s`
+                if (seconds === 0) {
+                    clearInterval(interval)
+                    LinkedInOpen.openLinkedInWeb(linkedinUrl)
+                }
+            }, 1000)
+        });
+    </script>
+</body>
+
+</html>

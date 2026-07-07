@@ -1,0 +1,28 @@
+services:
+  app:
+    build: .
+    image: ghcr.io/${GITHUB_OWNER:-local}/scan2connect:${IMAGE_TAG:-latest}
+    ports:
+      - "${PORT:-3000}:3000"
+    env_file:
+      - .env
+    environment:
+      DB_PATH: /data/data.db
+    volumes:
+      - scan2connect-data:/data
+    restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:3000/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  scan2connect-data:

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Cadastro - Scan2Connect</title>
+  <!-- Google Fonts & Material Symbols -->
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <!-- Tailwind Config -->
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "tertiary": "#b51b15",
+            "tertiary-container": "#d9372b",
+            "secondary-fixed": "#89fa9b",
+            "on-background": "#161b2b",
+            "on-error-container": "#93000a",
+            "on-tertiary-fixed-variant": "#930004",
+            "surface-variant": "#dde1f8",
+            "on-tertiary-fixed": "#410001",
+            "surface-bright": "#faf8ff",
+            "on-tertiary": "#ffffff",
+            "on-secondary-container": "#00722f",
+            "on-primary-fixed": "#001a41",
+            "surface-tint": "#005ac1",
+            "on-surface": "#1A1B1F",
+            "on-surface-variant": "#424753",
+            "on-tertiary-container": "#fffbff",
+            "primary-fixed": "#d8e2ff",
+            "secondary-container": "#86f898",
+            "surface-dim": "#d5d9f0",
+            "on-secondary": "#ffffff",
+            "on-primary-container": "#fefcff",
+            "primary-container": "#2771df",
+            "surface": "#faf8ff",
+            "primary": "#0058bd",
+            "surface-container-high": "#e3e7fe",
+            "google-red": "#EA4335",
+            "google-green": "#34A853",
+            "on-primary-fixed-variant": "#004494",
+            "on-secondary-fixed-variant": "#005320",
+            "secondary": "#006e2c",
+            "on-secondary-fixed": "#002108",
+            "google-blue": "#4285F4",
+            "on-error": "#ffffff",
+            "google-yellow": "#FBBC04",
+            "background": "#faf8ff",
+            "surface-container": "#ebedff",
+            "primary-fixed-dim": "#adc6ff",
+            "surface-container-lowest": "#ffffff",
+            "inverse-surface": "#2b3041",
+            "outline": "#727785",
+            "tertiary-fixed": "#ffdad5",
+            "inverse-primary": "#adc6ff",
+            "error": "#ba1a1a",
+            "error-container": "#ffdad6",
+            "inverse-on-surface": "#eef0ff",
+            "on-primary": "#ffffff",
+            "tertiary-fixed-dim": "#ffb4a9",
+            "surface-container-low": "#f2f3ff",
+            "surface-container-highest": "#dde1f8",
+            "secondary-fixed-dim": "#6ddd81",
+            "outline-variant": "#c2c6d5"
+          },
+          borderRadius: {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "margin-desktop": "64px",
+            "md": "24px",
+            "lg": "48px",
+            "gutter": "24px",
+            "margin-mobile": "16px",
+            "base": "8px",
+            "sm": "12px",
+            "xs": "4px",
+            "xl": "80px"
+          },
+          fontFamily: {
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "body-lg": ["Hanken Grotesk"],
+            "title-lg": ["Hanken Grotesk"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "body-md": ["Hanken Grotesk"],
+            "label-lg": ["Hanken Grotesk"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "label-md": ["Hanken Grotesk"]
+          },
+          fontSize: {
+            "headline-lg-mobile": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700" }],
+            "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+            "title-lg": ["20px", { lineHeight: "28px", fontWeight: "500" }],
+            "headline-md": ["28px", { lineHeight: "36px", fontWeight: "600" }],
+            "headline-sm": ["22px", { lineHeight: "28px", fontWeight: "600" }],
+            "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+            "label-lg": ["14px", { lineHeight: "20px", letterSpacing: "0.1px", fontWeight: "600" }],
+            "headline-lg": ["40px", { lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "700" }],
+            "label-md": ["12px", { lineHeight: "16px", fontWeight: "500" }]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: theme('colors.background');
+      color: theme('colors.on-background');
+    }
+  </style>
+  <style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+
+<body
+  class="min-h-screen flex flex-col font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed antialiased">
+  <!-- TopAppBar Shared Component -->
+  <header
+    class="w-full top-0 left-0 bg-surface dark:bg-on-background flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 max-w-[1280px] mx-auto z-50">
+    <div class="flex items-center gap-sm">
+      <span class="material-symbols-outlined text-google-blue dark:text-primary-fixed font-bold"
+        style="font-variation-settings: 'FILL' 1;">qr_code_2</span>
+      <span
+        class="font-headline-sm text-headline-sm-mobile md:font-headline-sm md:text-headline-sm font-bold text-google-blue dark:text-google-blue">GDG
+        Connect</span>
+    </div>
+    <!-- No active navigation needed for this transactional entry screen -->
+  </header>
+  <!-- Main Registration Canvas -->
+  <main
+    class="flex-1 w-full max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop py-lg md:py-xl flex flex-col lg:flex-row items-center justify-center gap-xl">
+    <!-- Hero & Welcome Section -->
+    <div class="flex-1 flex flex-col items-center text-center lg:items-start lg:text-left gap-md max-w-lg">
+      <!-- Visual Element -->
+      <div
+        class="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden shadow-sm bg-surface-container-lowest border border-outline-variant/30 flex items-center justify-center mb-sm">
+        <!-- Abstract glowing network illustration -->
+        <svg class="absolute inset-0 w-full h-full opacity-60" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="100" r="60" fill="none" stroke="#4285F4" stroke-width="1.5" opacity="0.4" />
+          <circle cx="100" cy="100" r="80" fill="none" stroke="#4285F4" stroke-width="1" opacity="0.25" />
+          <circle cx="100" cy="100" r="40" fill="#d8e2ff" opacity="0.5" />
+          <circle cx="100" cy="100" r="20" fill="#4285F4" opacity="0.7" />
+        </svg>
+        <!-- Overlay Icon for fallback clarity -->
+        <div class="absolute inset-0 bg-gradient-to-tr from-surface/50 to-transparent flex items-center justify-center">
+          <span class="material-symbols-outlined text-[64px] text-google-blue drop-shadow-md"
+            style="font-variation-settings: 'wght' 300;">hub</span>
+        </div>
+      </div>
+      <div class="flex flex-col gap-xs">
+        <h1
+          class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface">
+          Bem-vindo ao GDG Connect!
+        </h1>
+        <p class="font-body-lg text-body-lg text-on-surface-variant">
+          Vincule seu adesivo ao seu perfil profissional.
+        </p>
+      </div>
+      <div
+        class="hidden lg:flex items-center gap-sm mt-md px-md py-sm bg-surface-container-low rounded-full text-on-surface-variant border border-outline-variant/50">
+        <span class="material-symbols-outlined text-google-green">check_circle</span>
+        <span class="font-label-md text-label-md">Leva menos de 30 segundos</span>
+      </div>
+    </div>
+    <!-- Action Card Section -->
+    <div
+      class="w-full max-w-md bg-surface-container-lowest border border-outline-variant/40 rounded-lg p-md md:p-lg shadow-[0_4px_24px_rgba(66,133,244,0.05)] flex flex-col gap-lg">
+      <!-- Explainer Content -->
+      <div class="flex flex-col gap-sm">
+        <div class="flex items-center gap-sm mb-xs">
+          <div class="w-10 h-10 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center">
+            <span class="material-symbols-outlined">contact_mail</span>
+          </div>
+          <h2 class="font-title-lg text-title-lg text-on-surface">Seu cartão de visita digital</h2>
+        </div>
+        <p class="font-body-md text-body-md text-on-surface-variant">
+          Ao vincular seu perfil do LinkedIn, qualquer pessoa que escanear seu adesivo do evento GDG poderá ver seu
+          perfil profissional e se conectar com você.
+        </p>
+      </div>
+      <!-- Input Form -->
+      <form class="flex flex-col gap-md" id="link-form">
+        <div class="flex flex-col gap-xs">
+          <label class="font-label-lg text-label-lg text-on-surface" for="linkedin_input">Perfil do
+            LinkedIn</label>
+          <div class="relative group">
+            <span
+              class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-google-blue transition-colors">link</span>
+            <input autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"
+              class="w-full bg-surface-bright border border-outline-variant rounded-DEFAULT pl-12 pr-4 py-3 font-body-md text-body-md text-on-surface placeholder:text-outline focus:border-google-blue focus:ring-2 focus:ring-primary-fixed outline-none transition-all"
+              id="linkedin_input" name="linkedin_input"
+              placeholder="https://www.linkedin.com/in/seu-usuario" required type="text" />
+          </div>
+          <p class="font-label-md text-label-md text-outline mt-1 pl-1">
+            Cole a URL completa ou informe apenas o usuário do perfil (ex: <span class="font-mono">joao-silva</span>).
+          </p>
+          <div class="hidden items-center gap-xs mt-xs px-xs py-xs rounded-DEFAULT" id="status-msg">
+            <span class="material-symbols-outlined text-[16px]" id="status-icon">info</span>
+            <span class="font-label-md text-label-md" id="status-text"></span>
+          </div>
+          <p class="font-label-md text-label-md text-outline mt-1 pl-1 flex items-center gap-1">
+            <span class="material-symbols-outlined text-[14px]">lock</span>
+            Suas informações são compartilhadas apenas quando alguém escaneia seu crachá.
+          </p>
+        </div>
+        <button
+          class="w-full bg-google-blue text-on-primary rounded-full px-md py-3 mt-sm font-label-lg text-label-lg flex items-center justify-center gap-sm hover:bg-primary hover:shadow-[0_4px_12px_rgba(66,133,244,0.3)] active:scale-[0.98] transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
+          id="submit-btn" type="submit">
+          <span class="material-symbols-outlined" id="btn-icon"
+            style="font-variation-settings: 'wght' 600;">check_circle</span>
+          <span id="btn-label">Confirmar e vincular</span>
+        </button>
+      </form>
+    </div>
+  </main>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const shortId = window.location.pathname.split('/').filter(Boolean).pop()
+      const form = document.getElementById('link-form')
+      const input = document.getElementById('linkedin_input')
+      const btn = document.getElementById('submit-btn')
+      const btnIcon = document.getElementById('btn-icon')
+      const btnLabel = document.getElementById('btn-label')
+      const statusMsg = document.getElementById('status-msg')
+      const statusIcon = document.getElementById('status-icon')
+      const statusText = document.getElementById('status-text')
+
+      function normalizePastedUrl(raw) {
+        const trimmed = raw.trim()
+        return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed.replace(/^\/+/, '')}`
+      }
+
+      function extractProfileSlug(raw) {
+        const trimmed = raw.trim().replace(/^@/, '').replace(/\/+$/, '')
+
+        if (/^https?:\/\//i.test(trimmed) || /linkedin\.com/i.test(trimmed)) {
+          try {
+            const slug = new URL(normalizePastedUrl(trimmed)).pathname.match(/^\/in\/([^/?#]+)/i)
+            if (slug) return slug[1]
+          } catch {
+            return null
+          }
+        }
+
+        const pathMatch = trimmed.match(/^\/in\/([^/?#]+)/i)
+        if (pathMatch) return pathMatch[1]
+
+        return null
+      }
+
+      function isUsernameLike(text) {
+        return /^[a-zA-Z0-9-_%]+$/.test(text.trim().replace(/^@/, ''))
+      }
+
+      function showStatus(type, text) {
+        const styles = {
+          loading: { icon: 'progress_activity', color: 'text-google-blue bg-primary-fixed/20', spin: true },
+          error: { icon: 'error', color: 'text-error bg-error-container', spin: false },
+          success: { icon: 'check_circle', color: 'text-secondary bg-secondary-container', spin: false },
+        }
+        const s = styles[type]
+        statusMsg.className = `flex items-center gap-xs mt-xs px-xs py-xs rounded-DEFAULT ${s.color}`
+        statusIcon.textContent = s.icon
+        statusIcon.style.animation = s.spin ? 'spin 1s linear infinite' : ''
+        statusText.textContent = text
+        statusMsg.classList.remove('hidden')
+      }
+
+      if (!shortId) {
+        btn.disabled = true
+        showStatus('error', 'Código inválido. Escaneie o QR novamente.')
+      }
+
+      function setLoading(loading) {
+        btn.disabled = loading || !shortId
+        btnIcon.textContent = loading ? 'progress_activity' : 'check_circle'
+        btnIcon.style.animation = loading ? 'spin 1s linear infinite' : ''
+        btnLabel.textContent = loading ? 'Vinculando perfil...' : 'Confirmar e vincular'
+      }
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault()
+        if (!shortId) return
+
+        const raw = input.value.trim()
+        if (!raw) {
+          showStatus('error', 'Informe a URL ou o usuário do seu perfil.')
+          return
+        }
+
+        let payload
+        let displayName
+        const slug = extractProfileSlug(raw)
+
+        if (slug) {
+          displayName = slug
+          payload = { linkedin_username: slug }
+        } else if (isUsernameLike(raw)) {
+          const username = raw.trim().replace(/^@/, '')
+          displayName = username
+          payload = { linkedin_username: username }
+        } else {
+          showStatus('error', 'Informe uma URL válida do LinkedIn ou apenas o usuário do perfil.')
+          return
+        }
+
+        setLoading(true)
+        showStatus('loading', 'Vinculando seu perfil...')
+
+        try {
+          const res = await fetch(`/${shortId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          })
+          const data = await res.json()
+
+          if (res.ok && data.success) {
+            showStatus('success', 'Perfil vinculado! Redirecionando...')
+            const name = displayName ?? data.name ?? 'Perfil vinculado!'
+            const url = data.url ?? `https://www.linkedin.com/in/${encodeURIComponent(displayName)}`
+            window.location.href = `/success.html?name=${encodeURIComponent(name)}&url=${encodeURIComponent(url)}`
+            return
+          }
+
+          showStatus('error', data.error ?? 'Erro ao vincular. Tente novamente.')
+        } catch {
+          showStatus('error', 'Erro de conexão. Verifique sua internet e tente novamente.')
+        }
+
+        setLoading(false)
+      })
+    })
+  </script>
+  <style>
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+  <!-- Footer Shared Component (Simplified for transactional intent) -->
+  <footer
+    class="w-full mt-auto border-t border-outline-variant bg-surface-container-lowest dark:bg-on-background py-lg">
+    <div
+      class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-md">
+      <p class="font-label-md text-label-md text-on-surface-variant font-medium">© 2024 Google Developer Groups</p>
+      <div class="flex gap-md">
+        <a class="text-on-surface-variant font-label-md text-label-md hover:text-google-blue transition-colors"
+          href="#">Privacidade</a>
+        <a class="text-on-surface-variant font-label-md text-label-md hover:text-google-blue transition-colors"
+          href="#">Termos</a>
+        <a class="text-on-surface-variant font-label-md text-label-md hover:text-google-blue transition-colors"
+          href="#">Suporte</a>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>

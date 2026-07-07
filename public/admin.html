@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Painel Admin - Scan2Connect</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary": "#b51b15",
+            "tertiary-container": "#d9372b",
+            "secondary-fixed": "#89fa9b",
+            "on-background": "#161b2b",
+            "on-error-container": "#93000a",
+            "on-tertiary-fixed-variant": "#930004",
+            "surface-variant": "#dde1f8",
+            "on-tertiary-fixed": "#410001",
+            "surface-bright": "#faf8ff",
+            "on-tertiary": "#ffffff",
+            "on-secondary-container": "#00722f",
+            "on-primary-fixed": "#001a41",
+            "surface-tint": "#005ac1",
+            "on-surface": "#1A1B1F",
+            "on-surface-variant": "#424753",
+            "on-tertiary-container": "#fffbff",
+            "primary-fixed": "#d8e2ff",
+            "secondary-container": "#86f898",
+            "surface-dim": "#d5d9f0",
+            "on-secondary": "#ffffff",
+            "on-primary-container": "#fefcff",
+            "primary-container": "#2771df",
+            "surface": "#faf8ff",
+            "primary": "#0058bd",
+            "surface-container-high": "#e3e7fe",
+            "google-red": "#EA4335",
+            "google-green": "#34A853",
+            "on-primary-fixed-variant": "#004494",
+            "on-secondary-fixed-variant": "#005320",
+            "secondary": "#006e2c",
+            "on-secondary-fixed": "#002108",
+            "google-blue": "#4285F4",
+            "on-error": "#ffffff",
+            "google-yellow": "#FBBC04",
+            "background": "#faf8ff",
+            "surface-container": "#ebedff",
+            "primary-fixed-dim": "#adc6ff",
+            "surface-container-lowest": "#ffffff",
+            "inverse-surface": "#2b3041",
+            "outline": "#727785",
+            "tertiary-fixed": "#ffdad5",
+            "inverse-primary": "#adc6ff",
+            "error": "#ba1a1a",
+            "error-container": "#ffdad6",
+            "inverse-on-surface": "#eef0ff",
+            "on-primary": "#ffffff",
+            "tertiary-fixed-dim": "#ffb4a9",
+            "surface-container-low": "#f2f3ff",
+            "surface-container-highest": "#dde1f8",
+            "secondary-fixed-dim": "#6ddd81",
+            "outline-variant": "#c2c6d5"
+          },
+          "borderRadius": {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "margin-desktop": "64px",
+            "md": "24px",
+            "lg": "48px",
+            "gutter": "24px",
+            "margin-mobile": "16px",
+            "base": "8px",
+            "sm": "12px",
+            "xs": "4px",
+            "xl": "80px"
+          },
+          "fontFamily": {
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "body-lg": ["Hanken Grotesk"],
+            "title-lg": ["Hanken Grotesk"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "body-md": ["Hanken Grotesk"],
+            "label-lg": ["Hanken Grotesk"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "label-md": ["Hanken Grotesk"]
+          },
+          "fontSize": {
+            "headline-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "500" }],
+            "headline-md": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+            "headline-sm": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600" }],
+            "headline-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    .material-symbols-outlined.filled {
+      font-variation-settings: 'FILL' 1;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+  <style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+
+<body class="bg-background text-on-surface min-h-screen pb-32">
+  <!-- TopAppBar -->
+  <header
+    class="w-full top-0 left-0 bg-surface dark:bg-on-background flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 max-w-[1280px] mx-auto z-40 relative">
+    <div class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-google-blue dark:text-primary-fixed" data-icon="qr_code_2"
+        data-weight="fill">qr_code_2</span>
+      <span
+        class="font-headline-sm text-headline-sm-mobile md:font-headline-sm md:text-headline-sm font-bold text-google-blue dark:text-google-blue">GDG
+        Connect</span>
+    </div>
+    <div class="flex items-center gap-sm">
+      <form action="/admin/logout" method="POST">
+        <button
+          class="flex items-center gap-xs px-sm py-xs rounded-full bg-surface-container-high text-on-surface-variant hover:text-google-red hover:bg-error-container/30 transition-colors font-label-md text-label-md"
+          title="Sair do painel"
+          type="submit">
+          <span class="material-symbols-outlined text-[18px]">logout</span>
+          <span class="hidden md:inline">Sair</span>
+        </button>
+      </form>
+    </div>
+  </header>
+  <main class="px-margin-mobile md:px-margin-desktop max-w-[1280px] mx-auto pt-sm flex flex-col gap-lg">
+    <!-- Header Section -->
+    <section class="flex flex-col gap-xs">
+      <h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Painel Admin</h1>
+      <p class="font-body-md text-body-md text-on-surface-variant">Gerencie conexões e gere lotes de QR Codes.</p>
+    </section>
+    <!-- Stats Grid (Bento Style) -->
+    <section class="grid grid-cols-2 gap-sm">
+      <div
+        class="col-span-2 bg-surface-container-low p-md rounded-DEFAULT border border-surface-container-highest flex items-center justify-between shadow-[0_4px_20px_rgba(60,65,83,0.02)]">
+        <div class="flex flex-col gap-1">
+          <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Total de
+            adesivos</span>
+          <span class="font-headline-md text-headline-md text-google-blue" id="stat-total">—</span>
+        </div>
+        <div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center">
+          <span class="material-symbols-outlined text-on-primary-fixed-variant">sell</span>
+        </div>
+      </div>
+      <div
+        class="bg-surface-container-low p-md rounded-DEFAULT border border-surface-container-highest flex flex-col gap-2 shadow-[0_4px_20px_rgba(60,65,83,0.02)]">
+        <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Vinculados</span>
+        <div class="flex items-end gap-2">
+          <span class="font-headline-sm text-headline-sm text-google-green" id="stat-linked">—</span>
+          <span class="font-label-md text-label-md text-google-green mb-1 flex items-center"><span
+              class="material-symbols-outlined text-[14px]">arrow_upward</span> 12%</span>
+        </div>
+      </div>
+      <div
+        class="bg-surface-container-low p-md rounded-DEFAULT border border-surface-container-highest flex flex-col gap-2 shadow-[0_4px_20px_rgba(60,65,83,0.02)]">
+        <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Escaneamentos hoje</span>
+        <div class="flex items-end gap-2">
+          <span class="font-headline-sm text-headline-sm text-google-yellow" id="stat-scans">—</span>
+          <span class="font-label-md text-label-md text-google-yellow mb-1 flex items-center"><span
+              class="material-symbols-outlined text-[14px]">trending_up</span></span>
+        </div>
+      </div>
+    </section>
+    <!-- Generate Batch Section (Glassmorphism inspired container) -->
+    <section class="bg-surface-container rounded-DEFAULT p-md flex flex-col gap-md relative overflow-hidden">
+      <!-- Decorative gradient orb -->
+      <div
+        class="absolute -top-10 -right-10 w-40 h-40 bg-google-blue opacity-10 rounded-full blur-2xl pointer-events-none">
+      </div>
+      <div class="flex flex-col gap-1 relative z-10">
+        <h2 class="font-title-lg text-title-lg text-on-surface">Gerar novo lote</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant">Crie novos QR Codes sem vínculo para impressão.</p>
+      </div>
+      <form action="/admin/codes" class="flex flex-col gap-sm relative z-10" method="POST">
+        <div class="flex flex-col gap-xs">
+          <label class="font-label-md text-label-md text-on-surface-variant" for="batchCount">Quantidade de códigos</label>
+          <input
+            class="w-full bg-surface-lowest border border-outline-variant rounded-DEFAULT px-md py-sm font-body-md text-body-md text-on-surface focus:border-google-blue focus:ring-1 focus:ring-google-blue transition-colors"
+            id="batchCount" max="1000" min="1" name="count" type="number" value="50" />
+        </div>
+        <button
+          class="bg-google-blue text-on-primary rounded-full py-3 px-lg font-label-lg text-label-lg flex justify-center items-center gap-2 hover:bg-primary transition-colors active:scale-95 duration-150 mt-2"
+          type="submit">
+          <span class="material-symbols-outlined text-[20px]">qr_code_scanner</span>
+          Gerar QR Codes
+        </button>
+      </form>
+    </section>
+    <!-- Recent Codes Table / List -->
+    <section class="flex flex-col gap-sm">
+      <div class="flex items-center justify-between">
+        <h2 class="font-title-lg text-title-lg text-on-surface">Códigos recentes</h2>
+        <div class="relative">
+          <button id="export-toggle"
+            class="font-label-md text-label-md text-google-blue flex items-center gap-1 hover:opacity-80 transition-opacity">
+            Exportar <span class="material-symbols-outlined text-[16px]">download</span>
+          </button>
+          <div id="export-menu"
+            class="hidden absolute right-0 top-full mt-1 bg-surface-container-lowest border border-outline-variant rounded-DEFAULT shadow-[0_4px_20px_rgba(60,65,83,0.12)] py-1 min-w-[180px] z-20">
+            <button id="export-csv"
+              class="w-full text-left px-md py-sm font-label-md text-label-md text-on-surface hover:bg-surface-container-low transition-colors flex items-center gap-2">
+              <span class="material-symbols-outlined text-[16px] text-google-blue">table</span>
+              Exportar CSV
+            </button>
+            <button id="export-zip"
+              class="w-full text-left px-md py-sm font-label-md text-label-md text-on-surface hover:bg-surface-container-low transition-colors flex items-center gap-2">
+              <span class="material-symbols-outlined text-[16px] text-google-blue">folder_zip</span>
+              Exportar ZIP (QRs)
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Search -->
+      <div class="relative">
+        <span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+        <input
+          class="w-full bg-surface-lowest border border-outline-variant rounded-DEFAULT pl-12 pr-md py-sm font-body-md text-body-md text-on-surface focus:border-google-blue focus:ring-1 focus:ring-google-blue transition-colors"
+          id="searchInput"
+          placeholder="Buscar por ID ou usuário LinkedIn"
+          type="search" />
+      </div>
+      <!-- Filters -->
+      <div class="flex gap-2 overflow-x-auto no-scrollbar py-1">
+        <button id="filter-all"
+          class="bg-primary-container text-on-primary-container border border-primary-container rounded-full px-4 py-1.5 font-label-md text-label-md whitespace-nowrap">Todos</button>
+        <button id="filter-unlinked"
+          class="bg-surface text-on-surface-variant border border-outline-variant rounded-full px-4 py-1.5 font-label-md text-label-md whitespace-nowrap hover:bg-surface-container-low transition-colors">Não
+          vinculados</button>
+        <button id="filter-linked"
+          class="bg-surface text-on-surface-variant border border-outline-variant rounded-full px-4 py-1.5 font-label-md text-label-md whitespace-nowrap hover:bg-surface-container-low transition-colors">Vinculados</button>
+      </div>
+      <!-- List Items -->
+      <div class="flex flex-col gap-2 mt-2" id="codes-list">
+        <p class="font-body-md text-on-surface-variant text-center py-lg">Carregando...</p>
+      </div>
+    </section>
+  </main>
+  <script>
+    let currentFilter = 'all'
+    let currentSearch = ''
+    let searchDebounce = null
+
+    function codeItemHTML(code) {
+      const linked = !!code.linkedin_url
+      const icon = linked
+        ? `<div class="w-10 h-10 rounded-full bg-secondary-fixed-dim bg-opacity-20 flex items-center justify-center text-on-secondary-container"><span class="material-symbols-outlined text-[20px] filled">check_circle</span></div>`
+        : `<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center text-on-surface-variant"><span class="material-symbols-outlined text-[20px]">help</span></div>`
+      const status = linked
+        ? `<span class="font-label-md text-label-md text-google-green">Vinculado ao LinkedIn</span>`
+        : `<span class="font-label-md text-label-md text-on-surface-variant">Não vinculado</span>`
+      const username = linked && code.linkedin_username
+        ? `<span class="font-label-md text-label-md text-on-surface-variant">${code.linkedin_username}</span>`
+        : ''
+      const linkedinBtn = linked
+        ? `<a class="text-google-blue font-label-md hover:underline flex items-center gap-xs" href="${code.linkedin_url}" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined text-[16px]">open_in_new</span>LinkedIn</a>`
+        : ''
+      const unlinkBtn = linked
+        ? `<button class="text-google-red font-label-md hover:underline flex items-center gap-xs" data-unlink="${code.id}"><span class="material-symbols-outlined text-[16px]">link_off</span>Desvincular</button>`
+        : ''
+      return `
+    <div class="bg-surface-bright border border-surface-container-highest rounded-lg p-sm flex items-center justify-between hover:shadow-[0_4px_20px_rgba(60,65,83,0.08)] transition-shadow">
+      <div class="flex items-center gap-sm">${icon}<div class="flex flex-col"><span class="font-label-lg text-label-lg text-on-surface">${code.id}</span>${username}${status}</div></div>
+      <div class="flex items-center gap-sm">
+        <span class="font-label-md text-label-md text-on-surface-variant mr-sm">${code.scan_count} escaneamentos</span>
+        ${linkedinBtn}
+        <a class="text-google-blue font-label-md hover:underline flex items-center gap-xs" href="/admin/codes/${code.id}/qr" target="_blank"><span class="material-symbols-outlined text-[16px]">qr_code</span>QR</a>
+        ${unlinkBtn}
+      </div>
+    </div>`
+    }
+
+    async function loadCodes(status = 'all', search = currentSearch) {
+      const list = document.getElementById('codes-list')
+      list.innerHTML = '<p class="font-body-md text-on-surface-variant text-center py-lg">Carregando...</p>'
+      try {
+        const params = new URLSearchParams({ status })
+        if (search.trim()) params.set('q', search.trim())
+        const res = await fetch(`/admin/codes?${params}`)
+        if (res.status === 401 || res.status === 302) { window.location.href = '/admin/login'; return }
+        const data = await res.json()
+        document.getElementById('stat-total').textContent = data.stats.total
+        document.getElementById('stat-linked').textContent = data.stats.linked
+        document.getElementById('stat-scans').textContent = data.stats.scansToday
+        list.innerHTML = data.codes.length
+          ? data.codes.map(codeItemHTML).join('')
+          : '<p class="font-body-md text-on-surface-variant text-center py-lg">Nenhum código encontrado.</p>'
+      } catch {
+        list.innerHTML = '<p class="font-body-md text-error text-center py-lg">Erro ao carregar dados.</p>'
+      }
+    }
+
+    function setActiveFilter(active) {
+      const map = { all: 'filter-all', unlinked: 'filter-unlinked', linked: 'filter-linked' }
+      const activeClass = ['bg-primary-container', 'text-on-primary-container', 'border-primary-container']
+      const inactiveClass = ['bg-surface', 'text-on-surface-variant', 'border-outline-variant']
+      for (const [key, id] of Object.entries(map)) {
+        const btn = document.getElementById(id)
+        if (key === active) { btn.classList.add(...activeClass); btn.classList.remove(...inactiveClass) }
+        else { btn.classList.remove(...activeClass); btn.classList.add(...inactiveClass) }
+      }
+    }
+
+    function triggerExport(format) {
+      const params = new URLSearchParams({ format, status: currentFilter })
+      window.location.href = `/admin/codes/export?${params}`
+      document.getElementById('export-menu').classList.add('hidden')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadCodes()
+
+      document.getElementById('filter-all').addEventListener('click', () => { currentFilter = 'all'; setActiveFilter('all'); loadCodes('all') })
+      document.getElementById('filter-unlinked').addEventListener('click', () => { currentFilter = 'unlinked'; setActiveFilter('unlinked'); loadCodes('unlinked') })
+      document.getElementById('filter-linked').addEventListener('click', () => { currentFilter = 'linked'; setActiveFilter('linked'); loadCodes('linked') })
+
+      document.getElementById('searchInput').addEventListener('input', (e) => {
+        currentSearch = e.target.value
+        clearTimeout(searchDebounce)
+        searchDebounce = setTimeout(() => loadCodes(currentFilter), 300)
+      })
+
+      const exportMenu = document.getElementById('export-menu')
+      document.getElementById('export-toggle').addEventListener('click', (e) => {
+        e.stopPropagation()
+        exportMenu.classList.toggle('hidden')
+      })
+      document.getElementById('export-csv').addEventListener('click', () => triggerExport('csv'))
+      document.getElementById('export-zip').addEventListener('click', () => triggerExport('zip'))
+      document.addEventListener('click', () => exportMenu.classList.add('hidden'))
+
+      document.querySelector('form[action="/admin/codes"]').addEventListener('submit', async (e) => {
+        e.preventDefault()
+        const count = parseInt(document.getElementById('batchCount').value, 10)
+        const btn = e.target.querySelector('button[type="submit"]')
+        btn.disabled = true; btn.textContent = 'Gerando...'
+        try {
+          const res = await fetch('/admin/codes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ count }) })
+          const data = await res.json()
+          if (res.ok) { loadCodes(currentFilter) }
+          else { alert(data.error ?? 'Erro ao gerar códigos') }
+        } catch { alert('Erro de conexão') }
+        btn.disabled = false; btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">qr_code_scanner</span> Gerar QR Codes'
+      })
+
+      document.getElementById('codes-list').addEventListener('click', async (e) => {
+        const btn = e.target.closest('[data-unlink]')
+        if (!btn) return
+        const id = btn.dataset.unlink
+        if (!confirm(`Desvincular código ${id}?`)) return
+        btn.disabled = true
+        try {
+          const res = await fetch(`/admin/codes/${id}/unlink`, { method: 'POST' })
+          if (res.ok) { loadCodes(currentFilter) }
+          else { const d = await res.json(); alert(d.error ?? 'Erro') }
+        } catch { alert('Erro de conexão') }
+      })
+    })
+  </script>
+  <!-- BottomNavBar -->
+  <nav
+    class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-margin-mobile py-sm md:hidden bg-surface-container dark:bg-on-background shadow-sm rounded-t-lg">
+    <!-- Item 1: Register (Inactive) -->
+    <a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-90 duration-150 p-2 rounded-2xl w-16"
+      href="#">
+      <span class="material-symbols-outlined mb-1" data-icon="qr_code_scanner">qr_code_scanner</span>
+      <span class="font-label-md text-label-md">Cadastro</span>
+    </a>
+    <!-- Item 2: Admin (Active - maps to Admin Portal intent) -->
+    <a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-2xl px-base py-xs active:scale-90 transition-transform duration-150 w-16"
+      href="#">
+      <span class="material-symbols-outlined mb-1 filled" data-icon="dashboard">dashboard</span>
+      <span class="font-label-md text-label-md">Painel</span>
+    </a>
+    <!-- Item 3: Stats (Inactive) -->
+    <a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-90 duration-150 p-2 rounded-2xl w-16"
+      href="#">
+      <span class="material-symbols-outlined mb-1" data-icon="bar_chart">bar_chart</span>
+      <span class="font-label-md text-label-md">Estatísticas</span>
+    </a>
+  </nav>
+</body>
+
+</html>
