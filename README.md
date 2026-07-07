@@ -194,11 +194,11 @@ docker compose up -d
 
 4. No GitHub, abra **Actions → Docker Publish → Run workflow**.
 
-5. A imagem será publicada em:
+5. A imagem será publicada em (sempre em **minúsculas**):
 
 ```
-ghcr.io/<seu-usuario>/scan2connect:latest
-ghcr.io/<seu-usuario>/scan2connect:sha-<commit>
+ghcr.io/lima08/scan2connect:latest
+ghcr.io/lima08/scan2connect:sha-<commit>
 ```
 
 ### Rodar em qualquer servidor (produção)
@@ -221,11 +221,11 @@ O PAT precisa do escopo `read:packages`.
 Exemplo de `.env` em produção:
 
 ```env
-GITHUB_OWNER=seu-usuario-github
+GITHUB_OWNER=lima08
 IMAGE_TAG=latest
 ADMIN_PASSWORD=senha-forte
 BASE_URL=https://scan.seu-dominio.com
-SESSION_SECRET=segredo-longo-aleatorio
+SESSION_SECRET=segredo-longo-aleatorio-com-32-chars-ou-mais
 ```
 
 4. Suba ou atualize:
@@ -250,7 +250,7 @@ docker build -t scan2connect .
 docker run -d --name scan2connect -p 3000:3000 \
   -e ADMIN_PASSWORD=senha \
   -e BASE_URL=https://seu-dominio.com \
-  -e SESSION_SECRET=segredo-longo \
+  -e SESSION_SECRET=segredo-longo-aleatorio-com-32-chars-ou-mais \
   -v scan2connect-data:/data \
   -e DB_PATH=/data/data.db \
   --restart unless-stopped \
