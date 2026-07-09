@@ -136,10 +136,10 @@ Servidor disponível em `http://localhost:3000`.
 | Variável | Obrigatória | Descrição |
 |----------|-------------|-----------|
 | `ADMIN_PASSWORD` | ✅ | Senha do painel admin |
-| `BASE_URL` | ✅ | URL pública do servidor (ex: `http://localhost:3000`) |
+| `BASE_URL` | ✅ | URL pública do servidor (local: `http://localhost:3000`; produção: `https://scan-gdg.limadesenvolvimento.com`) |
 | `PORT` | — | Porta do servidor (padrão: `3000`) |
 | `DB_PATH` | — | Caminho do banco SQLite (padrão: `./data.db`) |
-| `SESSION_SECRET` | — | Segredo das sessões admin (gera um aleatório se ausente) |
+| `SESSION_SECRET` | — | Segredo das sessões admin (**obrigatório** em produção; ver [docs/deploy-portainer.md](docs/deploy-portainer.md)) |
 
 ## Testes automatizados
 
@@ -157,11 +157,32 @@ npm start        # inicia o servidor compilado
 
 ## Deploy com Docker Compose + GHCR
 
-Para deploy em **Portainer + Traefik** (produção com domínio e HTTPS), siga o guia detalhado:
+### Documentação
 
-**[docs/deploy-portainer.md](docs/deploy-portainer.md)**
+Índice completo: **[docs/README.md](docs/README.md)**
+
+| Guia | Quando usar |
+|------|-------------|
+| **[docs/deploy-portainer.md](docs/deploy-portainer.md)** | **Produção** — Portainer + Traefik + subdomínio HTTPS |
+| **[docs/deploy-ghcr.md](docs/deploy-ghcr.md)** | Publicar imagem no GHCR e testar Docker localmente |
+
+**URL de produção:** `https://scan-gdg.limadesenvolvimento.com`
 
 Arquivos de produção: `docker-compose.prod.yml` e `.env.prod.example`.
+
+### Variáveis no Portainer (produção)
+
+| Variável | Valor | Obrigatória |
+|----------|-------|-------------|
+| `DOMAIN` | `scan-gdg.limadesenvolvimento.com` | Sim |
+| `ADMIN_PASSWORD` | senha forte | Sim |
+| `SESSION_SECRET` | output de `openssl rand -base64 32` | Sim |
+| `GITHUB_OWNER` | `lima08` | Não |
+| `IMAGE_TAG` | `latest` | Não |
+| `HOST_BIND_PORT` | `13087` | Não |
+| `TZ` | `America/Sao_Paulo` | Não |
+
+> **DNS vs `DOMAIN`:** na Hostinger o registro **A** usa nome `scan-gdg`; no Portainer a variável `DOMAIN` é o hostname **completo** `scan-gdg.limadesenvolvimento.com`.
 
 ### Rodar localmente com Docker
 
@@ -190,78 +211,46 @@ docker compose down
 docker compose up -d
 ```
 
-### Publicar imagem no GitHub Container Registry (manual)
+### Publicar imagem no GitHub Container Registry
+
+Detalhes completos em **[docs/deploy-ghcr.md](docs/deploy-ghcr.md)**. Resumo:
 
 1. Faça push do repositório para o GitHub.
-
 2. Em **Settings → Actions → General → Workflow permissions**, habilite **Read and write permissions**.
-
 3. Em **Settings → Packages**, defina a visibilidade do pacote (pública ou privada).
-
 4. No GitHub, abra **Actions → Docker Publish → Run workflow**.
 
-5. A imagem será publicada em (sempre em **minúsculas**):
+Imagem publicada (sempre em **minúsculas**):
 
 ```
 ghcr.io/lima08/scan2connect:latest
 ghcr.io/lima08/scan2connect:sha-<commit>
 ```
 
-### Rodar em qualquer servidor (produção)
+### Deploy em produção (Portainer + Traefik)
 
-1. Instale Docker e Docker Compose no servidor.
+Siga o guia **[docs/deploy-portainer.md](docs/deploy-portainer.md)**. Resumo:
 
-2. Se a imagem for **privada**, faça login no GHCR:
+1. Registro DNS **A** `scan-gdg` → IP do servidor (Hostinger).
+2. Stack no Portainer com `docker-compose.prod.yml`.
+3. Variáveis: `DOMAIN=scan-gdg.limadesenvolvimento.com`, `ADMIN_PASSWORD`, `SESSION_SECRET`.
+4. Validar: `curl https://scan-gdg.limadesenvolvimento.com/health`
 
-```bash
-echo <GITHUB_PAT> | docker login ghcr.io -u <github-user> --password-stdin
-```
-
-O PAT precisa do escopo `read:packages`.
-
-3. Crie uma pasta de deploy (ex: `/opt/scan2connect/`) com:
-
-- `docker-compose.yml` (pode remover `build: .` e manter só `image:` apontando para o GHCR)
-- `.env` com os segredos de produção
-
-Exemplo de `.env` em produção:
-
-```env
-GITHUB_OWNER=lima08
-IMAGE_TAG=latest
-ADMIN_PASSWORD=senha-forte
-BASE_URL=https://scan.seu-dominio.com
-SESSION_SECRET=segredo-longo-aleatorio-com-32-chars-ou-mais
-```
-
-4. Suba ou atualize:
-
-```bash
-docker compose pull
-docker compose up -d
-```
-
-5. Coloque Nginx ou Caddy na frente com HTTPS, fazendo proxy para `localhost:3000`.
-
-6. Garanta que `BASE_URL` no `.env` corresponde ao domínio público e reinicie:
-
-```bash
-docker compose up -d
-```
-
-### Docker sem Compose (alternativa)
+### Docker sem Compose (alternativa local)
 
 ```bash
 docker build -t scan2connect .
 docker run -d --name scan2connect -p 3000:3000 \
   -e ADMIN_PASSWORD=senha \
-  -e BASE_URL=https://seu-dominio.com \
+  -e BASE_URL=http://localhost:3000 \
   -e SESSION_SECRET=segredo-longo-aleatorio-com-32-chars-ou-mais \
   -v scan2connect-data:/data \
   -e DB_PATH=/data/data.db \
   --restart unless-stopped \
   scan2connect
 ```
+
+> Em produção com Traefik, use `docker-compose.prod.yml` — veja [docs/deploy-portainer.md](docs/deploy-portainer.md).
 
 ## Fluxo de uso no evento
 

@@ -36,7 +36,7 @@ jobs:
           images: ${{ env.IMAGE_NAME }}
           tags: |
             type=raw,value=${{ inputs.tag }}
-            type=raw,value=latest,enable=${{ inputs.tag != 'latest' }}
+            type=raw,value=latest
             type=sha,prefix=sha-,format=short
 
       - name: Build and push
