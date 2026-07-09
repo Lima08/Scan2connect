@@ -229,12 +229,13 @@ ghcr.io/lima08/scan2connect:sha-<commit>
 
 ### Deploy em produção (Portainer + Traefik)
 
-Siga o guia **[docs/deploy-portainer.md](docs/deploy-portainer.md)**. Resumo:
+Siga o guia **[docs/deploy-portainer.md](docs/deploy-portainer.md)** — inclui **primeiro acesso e testagem** (Parte 5). Resumo:
 
 1. Registro DNS **A** `scan-gdg` → IP do servidor (Hostinger).
 2. Stack no Portainer com `docker-compose.prod.yml`.
 3. Variáveis: `DOMAIN=scan-gdg.limadesenvolvimento.com`, `ADMIN_PASSWORD`, `SESSION_SECRET`.
 4. Validar: `curl https://scan-gdg.limadesenvolvimento.com/health`
+5. Primeiro acesso: `https://scan-gdg.limadesenvolvimento.com/admin/login` — ver Parte 5 do guia
 
 ### Docker sem Compose (alternativa local)
 
