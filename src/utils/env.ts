@@ -15,6 +15,10 @@ export function validateEnv(): EnvConfig {
     throw new Error(`Missing required environment variables: ${missing.join(', ')}`)
   }
 
+  if (process.env.NODE_ENV === 'production' && !process.env.SESSION_SECRET) {
+    throw new Error('SESSION_SECRET is required when NODE_ENV=production')
+  }
+
   if (!process.env.SESSION_SECRET) {
     console.warn('WARNING: SESSION_SECRET not set — using random value. Sessions will not survive restarts.')
   }

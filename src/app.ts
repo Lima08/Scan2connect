@@ -22,7 +22,11 @@ export function buildApp() {
     throw new Error('ADMIN_PASSWORD environment variable is required')
   }
   runMigrations()
-  const app = Fastify({ logger: false })
+  const behindHttps = process.env.BASE_URL?.startsWith('https://') ?? false
+  const app = Fastify({
+    logger: false,
+    trustProxy: behindHttps,
+  })
 
   app.register(fastifyStatic, {
     root: join(__dirname, '..', 'public'),
@@ -35,7 +39,9 @@ export function buildApp() {
   app.register(fastifySession, {
     secret: process.env.SESSION_SECRET ?? 'dev-secret-change-me-in-production!',
     cookie: {
-      secure: false,
+      secure: behindHttps,
+      sameSite: 'lax',
+      httpOnly: true,
       maxAge: ADMIN_SESSION_MAX_AGE_MS,
     },
   })

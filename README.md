@@ -157,6 +157,12 @@ npm start        # inicia o servidor compilado
 
 ## Deploy com Docker Compose + GHCR
 
+Para deploy em **Portainer + Traefik** (produção com domínio e HTTPS), siga o guia detalhado:
+
+**[docs/deploy-portainer.md](docs/deploy-portainer.md)**
+
+Arquivos de produção: `docker-compose.prod.yml` e `.env.prod.example`.
+
 ### Rodar localmente com Docker
 
 1. Copie o arquivo de ambiente:

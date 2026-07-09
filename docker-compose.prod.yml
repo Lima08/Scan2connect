@@ -1,0 +1,71 @@
+# Production stack for Portainer + Traefik (external traefik-network).
+# See docs/deploy-portainer.md for full deployment steps.
+#
+# Required env (Portainer stack variables or .env next to this file):
+#   DOMAIN, ADMIN_PASSWORD, SESSION_SECRET
+# Optional:
+#   GITHUB_OWNER (default: lima08), IMAGE_TAG (default: latest),
+#   HOST_BIND_PORT (default: 13087), TZ (default: America/Sao_Paulo)
+
+services:
+  scan2connect:
+    image: ghcr.io/${GITHUB_OWNER:-lima08}/scan2connect:${IMAGE_TAG:-latest}
+    container_name: scan2connect
+    restart: unless-stopped
+    ports:
+      # Local debug only — not exposed to the internet (Traefik handles public traffic)
+      - "127.0.0.1:${HOST_BIND_PORT:-13087}:3000"
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.scan2connect.rule=Host(`${DOMAIN}`) || Host(`www.${DOMAIN}`)
+      - traefik.http.routers.scan2connect.tls=true
+      - traefik.http.routers.scan2connect.entrypoints=web,websecure
+      - traefik.http.routers.scan2connect.tls.certresolver=leresolver
+      - traefik.http.services.scan2connect.loadbalancer.server.port=3000
+      - traefik.http.middlewares.scan2connect.headers.SSLRedirect=true
+      - traefik.http.middlewares.scan2connect.headers.STSSeconds=315360000
+      - traefik.http.middlewares.scan2connect.headers.browserXSSFilter=true
+      - traefik.http.middlewares.scan2connect.headers.contentTypeNosniff=true
+      - traefik.http.middlewares.scan2connect.headers.forceSTSHeader=true
+      - traefik.http.middlewares.scan2connect.headers.SSLHost=${DOMAIN}
+      - traefik.http.middlewares.scan2connect.headers.STSIncludeSubdomains=true
+      - traefik.http.middlewares.scan2connect.headers.STSPreload=true
+      - traefik.http.routers.scan2connect.middlewares=scan2connect@docker
+    environment:
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - BASE_URL=https://${DOMAIN}
+      - SESSION_SECRET=${SESSION_SECRET}
+      - DB_PATH=/data/data.db
+      - NODE_ENV=production
+      - TZ=${TZ:-America/Sao_Paulo}
+    volumes:
+      - scan2connect-data:/data
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:3000/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.25'
+    networks:
+      - traefik-network
+
+networks:
+  traefik-network:
+    external: true
+
+volumes:
+  scan2connect-data:
